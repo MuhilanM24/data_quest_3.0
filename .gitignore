@@ -1,0 +1,9 @@
+node_modules
+.next
+*.tsbuildinfo
+*.pyc
+__pycache__
+backend/.venv
+backend/prism.db
+.env
+.env.local
