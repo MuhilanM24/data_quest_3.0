@@ -1,0 +1,5 @@
+"use client";
+import { useEffect,useState } from "react";
+import { Shell,Pill } from "../ui";
+import { getRoadmap,type Roadmap as RoadmapType } from "../../lib/api";
+export default function Roadmap(){const [items,setItems]=useState<RoadmapType[]>([]);useEffect(()=>{const career=new URLSearchParams(window.location.search).get("career")||"product";getRoadmap(career).then(setItems)},[]);return <Shell><h1 className="text-4xl font-black">Your 10-week roadmap</h1><p className="mt-2 text-slate-500">Move from “maybe” to meaningful evidence.</p><div className="mt-8 space-y-4">{items.map((r,i)=><div key={r.phase} className="flex gap-5 rounded-3xl bg-white p-6 shadow-soft"><div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-mint font-black text-aqua">{r.phase}</div><div><Pill>{r.weeks}</Pill><h2 className="mt-3 text-xl font-black">{r.title}</h2><p className="mt-2 max-w-2xl leading-6 text-slate-600">{r.detail}</p></div><span className="ml-auto hidden self-center text-2xl text-slate-200 md:block">{i===0?"●":"○"}</span></div>)}</div></Shell>}

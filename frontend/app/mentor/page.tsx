@@ -1,0 +1,5 @@
+"use client";
+import { useEffect,useState } from "react";
+import { Shell,Pill } from "../ui";
+import { getMentors,type Mentor as MentorType } from "../../lib/api";
+export default function Mentor(){const [mentors,setMentors]=useState<MentorType[]>([]);useEffect(()=>{getMentors().then(setMentors)},[]);return <Shell><h1 className="text-4xl font-black">Find your people</h1><p className="mt-2 text-slate-500">Mentors who remember what it felt like to be at the beginning.</p><div className="mt-8 grid gap-5 md:grid-cols-3">{mentors.map((m,i)=><div key={m.id} className="rounded-3xl bg-white p-6 shadow-soft"><div className={`grid h-14 w-14 place-items-center rounded-full ${i===1?"bg-mint":"bg-[#ffe1d7]"} font-black`}>{m.initials}</div><h2 className="mt-5 text-xl font-black">{m.name}</h2><p className="mt-1 text-sm text-slate-500">{m.role}</p><p className="mt-5 text-sm leading-6 text-slate-600">Ask me about {m.focus.toLowerCase()}, first projects, and finding work that fits your life.</p><button className="mt-6 rounded-full bg-ink px-4 py-2 text-sm font-bold text-white">Request a chat</button></div>)}</div></Shell>}
