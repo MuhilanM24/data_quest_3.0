@@ -21,6 +21,20 @@ uvicorn app.main:app --reload --port 8000
 
 The frontend includes a deterministic local fallback dataset, so the demo remains functional if the API is not running. Set `NEXT_PUBLIC_API_URL` to point it at another backend.
 
+## Vercel deployment
+
+The root `vercel.json` defines two Vercel services: `backend` (FastAPI) and
+`frontend` (Next.js). The backend is public only through `/api/*`; all other
+routes go to the frontend. The frontend API client uses same-origin `/api`
+requests in Vercel and only needs `NEXT_PUBLIC_API_URL` when running against a
+separate local or hosted backend.
+
+Use `vercel dev` from the repository root to run both services together.
+Configure `GEMINI_API_KEY`, `SUPABASE_URL`, and `SUPABASE_SERVICE_ROLE_KEY` as
+Vercel project environment variables when enabling hosted integrations. No
+service binding is required because the frontend calls the public `/api/*`
+rewrite from the browser and the backend does not call another service.
+
 ## Demo routes and API
 
 The app includes `/assessment`, `/careers`, `/parent`, `/market`, `/roadmap`,

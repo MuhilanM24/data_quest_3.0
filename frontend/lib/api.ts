@@ -3,7 +3,9 @@ export type Opportunity = { id: string; title: string; org: string; type: string
 export type Roadmap = { phase: string; title: string; detail: string; weeks: string };
 export type Mentor = { id: string; name: string; role: string; initials: string; focus: string };
 export type Dna = { headline: string; summary: string; confidence: number; traits: { name: string; score: number }[] };
-const base = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+// In Vercel services mode, the frontend reaches FastAPI through the same-origin
+// /api rewrite. Keep the explicit URL override for local development.
+const base = process.env.NEXT_PUBLIC_API_URL || "";
 const fallbackCareers: Career[] = [
   ["product","Product Designer","Creative technology",94,"$92k–$145k","You translate human needs into useful, beautiful products.","Design research,Prototyping,Storytelling","Very strong","Technology"],
   ["software","Software Engineer","Computing",92,"$105k–$175k","You enjoy turning ideas into systems that work.","Python,JavaScript,Systems thinking","Very strong","Technology"],
